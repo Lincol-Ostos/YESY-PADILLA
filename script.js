@@ -24,67 +24,139 @@ const CONFIG = {
    Categories: 'editorial' | 'lifestyle' | 'portrait'
 ══════════════════════════════════════ */
 const galleryData = [
-  {
-    src: '',
-    alt: 'Editorial shoot in studio',
-    label: 'Estudio',
-    category: 'estudio',
-    tall: true,
-  },
-  {
-    src: '',
-    alt: 'Portrait golden hour',
-    label: 'Colaboradoes',
-    category: 'colaboradoes',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80',
-    alt: 'Lifestyle rooftop',
-    label: 'Conciertos',
-    category: 'conciertos',
-  },
-    {
+ 
+    /*{
    src: 'Agru-07.jpeg',
     alt: 'Lifestyle candid',
     label: 'Agrupación',
     category: '',
-  },
+  },*/
+  //////AGRUPACION INICIO
   {
    src: 'Agru-06.jpeg',
-    alt: 'Lifestyle candid',
-    label: 'Agrupación',
+    alt: 'Integrantes de la agrupación YESI PADILLA',
+    label: 'BAILARINES',
     category: 'agrupacion',
   },
   {
     src: 'Agru-05.jpeg',
-    alt: 'Lifestyle candid',
-    label: 'Agrupación',
+    alt: 'Integrantes de la agrupación YESI PADILLA',
+    label: 'Yanbier Mendoza',
     category: 'agrupacion',
   },
   {
    src: 'Agru-04.jpeg',
-    alt: 'Lifestyle candid',
-    label: 'Agrupación',
+    alt: 'Integrantes de la agrupación YESI PADILLA',
+    label: 'Yersi',
     category: 'agrupacion',
   },
   {
     src: 'Agru-03.jpeg',
-    alt: 'Editorial black & white',
-    label: 'Agrupación',
+    alt: 'Integrantes de la agrupación YESI PADILLA',
+    label: 'Michel Sánchez',
     category: 'agrupacion',
   },
   {
     src: 'Agru-02.jpeg',
-    alt: 'Lifestyle candid',
-    label: 'Agrupación',
+    alt: 'Integrantes de la agrupación YESI PADILLA',
+    label: 'Edwin Rosales',
     category: 'agrupacion',
   },
   {
     src: 'Agru-01.jpeg',
-    alt: 'Portrait natural light',
-    label: 'Agrupación',
+    alt: 'Integrantes de la agrupación YESI PADILLA',
+    label: 'LUIS',
     category: 'agrupacion',
   },
+/////////AGRUPACION FIN
+   /*{
+    src: 'tink-01.jpg',
+    alt: 'Editorial black & white',
+    label: 'Recuerdos',
+    category: 'recuerdos',
+  },*/
+  /////////CONCIERTOS INICIO
+    {
+    src: 'CON-01.jpeg',
+    alt: 'Presentation in live of Yesy Padilla',
+    label: 'Conciertos',
+    category: 'conciertos',
+  },
+  {
+    src: 'CON-02.jpeg',
+    alt: 'Presentation in live of Yesy Padilla',
+    label: 'Conciertos',
+    category: 'conciertos',   
+  },
+  {
+    src: 'CON-03.jpeg',
+    alt: 'Presentation in live of Yesy Padilla',
+    label: 'Conciertos',
+    category: 'conciertos',
+  },
+    {
+    src: 'CON-04.png',
+    alt: 'Presentación en vivo de Yesy Padilla',
+    label: 'Conciertos',
+    category: 'conciertos',
+  },
+ 
+/////////////// CONCIERTOS FIN 
+
+////////RECUERDOS INICIO
+    {
+    src: 'Rec-01.jpeg',
+    alt: 'Recuerdos Yesy Padilla',
+    label: 'SAN LUIS',
+    category: 'recuerdos',
+  },
+  {
+    src: 'Rec-02.jpeg',
+    alt: 'Recuerdos Yesy Padilla',
+    label: 'Grabación de un video',
+    category: 'recuerdos',
+  },
+  {
+    src: 'Rec-03.jpeg',
+    alt: 'Recuerdos Yesy Padilla',
+    label: 'LA CHOSA CARHUANCA',
+    category: 'recuerdos',
+  },
+  {
+    src: 'Rec-04.jpeg',
+    alt: 'Recuerdos Yesy Padilla',
+    label: 'Grabación de un video',
+    category: 'recuerdos',
+  },
+   {
+    src: 'Rec-05.jpeg',
+    alt: 'Recuerdos Yesy Padilla',
+    label: 'Grabación de un video',
+    category: 'recuerdos',
+  },
+    {
+      src: 'Rec-06.jpeg', 
+      alt: 'Recuerdos Yesy Padilla',
+      label: 'Grabación de un video',
+      category: 'recuerdos',
+    },
+
+  ////////RECUERDOS FIN
+
+  ///////// COLABORADORES INICIO
+    {
+    src: 'Colab-01.jpeg',
+    alt: '  Colaboradores Yesy Padilla',
+    label: 'POLLERIA KIARA',
+    category: 'colaboradoes',
+  },
+  {
+    src: 'JJYY.png',
+    alt: 'Colaboradores Yesy Padilla',
+    label: 'J&Y',
+    category: 'colaboradoes',
+  },
+  //////// COLABORADORES FIN
 ];
 
 /* ══════════════════════════════════════
