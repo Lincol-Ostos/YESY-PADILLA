@@ -10,9 +10,9 @@
 const CONFIG = {
   // EmailJS — replace with your real credentials (see deployment guide)
   emailjs: {
-    publicKey:    'YOUR_EMAILJS_PUBLIC_KEY',
-    serviceId:    'YOUR_EMAILJS_SERVICE_ID',
-    templateId:   'YOUR_EMAILJS_TEMPLATE_ID',
+    serviceId: 'service_bregrha',
+    templateId: 'template_a87c4vl',
+    publicKey: 'lzWoi5tEDjixmy88k'
   },
   // WhatsApp — replace with your number (international format, no + or spaces)
   whatsappNumber: '921546974',
@@ -32,6 +32,12 @@ const galleryData = [
     category: '',
   },*/
   //////AGRUPACION INICIO
+  {
+     src: '02-01.jpg',
+    alt: 'YESI PADILLA',
+    label: 'YESY PADILLA',
+    category: 'agrupacion',
+  },
   {
    src: 'Agru-06.jpeg',
     alt: 'Integrantes de la agrupación YESI PADILLA',
