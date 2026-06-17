@@ -215,7 +215,8 @@ function initCursor() {
   });
 
   // Efecto hover coordinando dinámicamente la escala sin romper la matriz de traslación
-  document.querySelectorAll('a, button, .gallery__item, .social__card').forEach(el => {
+  // Se incluyen input/textarea para que el cursor también reaccione al interactuar con el formulario
+  document.querySelectorAll('a, button, .gallery__item, .social__card, input, textarea').forEach(el => {
     el.addEventListener('mouseenter', () => {
       currentScale = 1.3;
     });
@@ -463,7 +464,7 @@ function initContactForm() {
     }
 
     if (!valid) {
-      showStatus('Please fill in all fields correctly.', 'error');
+      showStatus('Por favor completa todos los campos correctamente.', 'error');
       return;
     }
 
@@ -472,30 +473,55 @@ function initContactForm() {
     submitBtn.disabled = true;
     showStatus('', '');
 
-    try {
-      // ── Option A: EmailJS (preferred) ──────────────────────
-      if (typeof emailjs !== 'undefined' &&
-          CONFIG.emailjs.serviceId !== 'YOUR_EMAILJS_SERVICE_ID') {
-        await emailjs.sendForm(
-          CONFIG.emailjs.serviceId,
-          CONFIG.emailjs.templateId,
-          form
-        );
-        showStatus('Message sent! I\'ll reply soon. ✦', 'success');
-        form.reset();
+    // ── Fallback Dinámico ──────────────────────────────────────────
+    // Construye y abre el enlace de WhatsApp usando los campos que el
+    // usuario ya completó (from_name, from_email, message), sin que
+    // tenga que volver a escribir nada.
+    const triggerWhatsAppFallback = () => {
+      const whatsappText = encodeURIComponent(
+        `Hola Yesy! Soy ${name} (${email}).\n\n${message}`
+      );
+      const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${whatsappText}`;
+      const win = window.open(whatsappUrl, '_blank');
 
-      // ── Option B: WhatsApp fallback ────────────────────────
-      } else {
-        const text = encodeURIComponent(
-          `Hi Yesy! I'm ${name} (${email}).\n\n${message}`
-        );
-        window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${text}`, '_blank');
-        showStatus('Redirected to WhatsApp. Talk soon! ✦', 'success');
+      if (win) {
+        showStatus('Te redirigimos a WhatsApp. ¡Hablamos pronto! ✦', 'success');
         form.reset();
+      } else {
+        // Si el navegador bloquea el pop-up, dejamos un enlace manual
+        // para que el usuario pueda continuar con un solo toque.
+        statusEl.innerHTML = 'No pudimos abrir WhatsApp automáticamente. ' +
+          `<a href="${whatsappUrl}" target="_blank" rel="noopener" style="color:var(--gold-light); text-decoration:underline;">Toca aquí para continuar</a>.`;
+        statusEl.className = 'form__status error';
       }
+    };
+
+    try {
+      // ── Intento principal: EmailJS (transparente, con loader activo) ──
+      if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS no está disponible (la librería no cargó).');
+      }
+      if (CONFIG.emailjs.serviceId === 'YOUR_EMAILJS_SERVICE_ID') {
+        throw new Error('EmailJS no está configurado correctamente.');
+      }
+
+      await emailjs.sendForm(
+        CONFIG.emailjs.serviceId,
+        CONFIG.emailjs.templateId,
+        form
+      );
+
+      showStatus('¡Mensaje enviado! Te responderé pronto. ✦', 'success');
+      form.reset();
+
     } catch (err) {
-      console.error('Form error:', err);
-      showStatus('Something went wrong. Please try WhatsApp.', 'error');
+      // Se activa ante CUALQUIER fallo: error de la API de EmailJS,
+      // sin conexión a internet, variables mal configuradas o
+      // librería ausente. El mensaje del usuario nunca se pierde:
+      // se reenvía automáticamente por WhatsApp.
+      console.error('EmailJS falló, activando fallback a WhatsApp:', err);
+      triggerWhatsAppFallback();
+
     } finally {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;

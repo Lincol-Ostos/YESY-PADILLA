@@ -645,13 +645,28 @@ a, button, .gallery__item, .social__card {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity var(--transition);
   display: flex;
   align-items: flex-end;
   padding: 1.2rem;
 }
-.gallery__item:hover .gallery__item-overlay { opacity: 1; }
+
+/* ── DESKTOP / FINE POINTER: hidden by default, fades in on hover ── */
+@media (hover: hover) and (pointer: fine) {
+  .gallery__item-overlay {
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+  .gallery__item:hover .gallery__item-overlay { opacity: 1; }
+}
+
+/* ── MOBILE / TOUCH: no real hover, so keep label always visible ──
+   pointer-events: none avoids blocking taps meant for the Lightbox */
+@media (hover: none), (pointer: coarse) {
+  .gallery__item-overlay {
+    opacity: 1;
+    pointer-events: none;
+  }
+}
 .gallery__item-label {
   font-size: 0.72rem;
   letter-spacing: 0.15em;
