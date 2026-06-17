@@ -250,7 +250,16 @@ function initNav() {
     a.addEventListener('click', () => {
       links.classList.remove('open');
       toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      // Restore scroll when menu closes via link tap on mobile
+      document.body.style.overflow = '';
     });
+  });
+
+  // Prevent body scroll when mobile nav is open
+  toggle.addEventListener('click', () => {
+    const isOpen = links.classList.contains('open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 }
 
@@ -259,14 +268,24 @@ function initNav() {
 ══════════════════════════════════════ */
 function initScrollReveal() {
   const els = document.querySelectorAll('[data-reveal]');
+
+  // Fallback: if IntersectionObserver isn't supported (very old Safari), reveal all immediately
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('revealed'));
+    return;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
+        // Small delay to let Safari repaint before toggling class
+        requestAnimationFrame(() => {
+          entry.target.classList.add('revealed');
+        });
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
   els.forEach(el => observer.observe(el));
 }
@@ -283,6 +302,7 @@ function initGallery() {
   // Render items
   galleryData.forEach((item, index) => {
     const div = document.createElement('div');
+    // Use pointer cursor on touch devices; zoom-in is set via CSS on hover-capable devices
     div.className = `gallery__item${item.tall ? ' gallery__item--tall' : ''}`;
     div.dataset.category = item.category;
     div.dataset.index    = index;

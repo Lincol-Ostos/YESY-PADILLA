@@ -1035,3 +1035,352 @@ a, button, .gallery__item, .social__card {
 ::-webkit-scrollbar-track { background: var(--black); }
 ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.5); }
+
+/* =====================================================
+   RESPONSIVE FIXES & MOBILE-FIRST ADDITIONS
+   Added: June 2025 — Mobile + MacBook optimization
+   ===================================================== */
+
+/* ── MISSING CSS VARIABLES (referenced but never defined) ── */
+:root {
+  --transition:       all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast:  all 0.18s ease;
+  --radius:           12px;
+}
+
+/* ── GLOBAL: prevent horizontal overflow on all screens ── */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ── HERO IMAGE TAG: prevent overflow on small screens ── */
+.hero__image-tag {
+  max-width: calc(100% - 2rem);
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+/* ── ABOUT IMAGE DECO: clamp to avoid negative-offset overflow ── */
+@media (max-width: 900px) {
+  .about__image-deco {
+    inset: 12px -10px -10px 12px;
+  }
+  .about { padding: 5rem 6%; }
+  .about__label { margin-bottom: 2.5rem; }
+}
+
+/* ── GALLERY: ensure images have a defined height in all grids ── */
+.gallery__item-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+}
+
+/* ── SOCIAL GRID: fix 4 cards on 3-column grid (4th card was orphaned) ── */
+@media (min-width: 769px) {
+  .social__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .social__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ── CONTACT FORM: tap targets & spacing ── */
+.form__group input,
+.form__group textarea {
+  -webkit-appearance: none; /* Remove iOS default styling */
+  border-radius: 0;         /* Prevent Safari rounding inputs */
+  min-height: 44px;         /* Minimum tap target */
+}
+.form__group textarea {
+  min-height: 100px;
+}
+
+/* ── BUTTONS: ensure minimum tap target on mobile ── */
+.btn {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+/* ── LIGHTBOX: safe-area padding for notched phones ── */
+.lightbox__close {
+  top: max(1.5rem, env(safe-area-inset-top, 1.5rem));
+  right: max(1.5rem, env(safe-area-inset-right, 1.5rem));
+}
+.lightbox__nav--prev {
+  left: max(1rem, env(safe-area-inset-left, 1rem));
+}
+.lightbox__nav--next {
+  right: max(1rem, env(safe-area-inset-right, 1rem));
+}
+
+/* ══════════════════════════════════════════════
+   MEDIA QUERY — MOBILE (≤ 768px)
+   Primary target: phones (iPhone SE → iPhone Pro Max)
+══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* -- Typography scale down -- */
+  html { font-size: 15px; }
+
+  .section-heading {
+    font-size: clamp(1.9rem, 8vw, 2.8rem);
+  }
+
+  /* -- NAV: ensure toggle and logo never overlap -- */
+  .nav {
+    padding: 1rem 1.2rem;
+  }
+  .nav__logo {
+    font-size: 1.2rem;
+  }
+
+  /* -- HERO -- */
+  .hero {
+    padding: 5.5rem 5% 5rem;
+    gap: 2rem;
+    min-height: 100svh;
+  }
+  .hero__name {
+    font-size: clamp(2.8rem, 13vw, 4.5rem);
+  }
+  .hero__eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+  .hero__tagline {
+    font-size: 1rem;
+    margin-bottom: 1.8rem;
+  }
+  .hero__actions {
+    gap: 0.75rem;
+  }
+  .hero__actions .btn {
+    padding: 0.85rem 1.6rem;
+    font-size: 0.78rem;
+  }
+  .hero__image-frame {
+    max-height: 50vh;
+  }
+  .hero__image-tag {
+    font-size: 0.58rem;
+    padding: 0.55rem 0.9rem;
+    right: 0.25rem;
+    bottom: 0.25rem;
+  }
+
+  /* -- ABOUT -- */
+  .about {
+    padding: 4.5rem 5%;
+  }
+  .about__stats {
+    flex-wrap: wrap;
+    gap: 1.2rem 2rem;
+  }
+  .about__stat-num {
+    font-size: 1.6rem;
+  }
+  .about__image-wrap img {
+    border-radius: 2px 30px 2px 30px;
+  }
+  .about__image-deco {
+    display: none; /* Avoids overflow on tight screens */
+  }
+
+  /* -- GALLERY -- */
+  .gallery {
+    padding: 4.5rem 5%;
+  }
+  .gallery__filters {
+    gap: 0.5rem;
+  }
+  .gallery__filter {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.68rem;
+  }
+
+  /* -- SOCIAL -- */
+  .social {
+    padding: 4.5rem 5%;
+  }
+  .social__header {
+    margin-bottom: 2.5rem;
+  }
+  .social__card {
+    padding: 1.5rem 1.2rem;
+  }
+
+  /* -- CONTACT -- */
+  .contact {
+    padding: 4.5rem 5%;
+  }
+  .contact__intro {
+    font-size: 0.9rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  /* -- FOOTER -- */
+  .footer {
+    padding: 3rem 5% 2rem;
+  }
+  .footer__logo {
+    font-size: 1.6rem;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   MEDIA QUERY — SMALL PHONES (≤ 390px)
+   Target: iPhone SE, older Androids
+══════════════════════════════════════════════ */
+@media (max-width: 390px) {
+  html { font-size: 14px; }
+
+  .hero {
+    padding: 5rem 4.5% 4rem;
+  }
+  .hero__name {
+    font-size: clamp(2.4rem, 14vw, 3.5rem);
+  }
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero__actions .btn {
+    text-align: center;
+    justify-content: center;
+  }
+  .about__stats {
+    gap: 1rem;
+  }
+  .gallery__filters {
+    justify-content: flex-start;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   MEDIA QUERY — TABLET (769px – 1024px)
+   Includes iPad, iPad Mini, small MacBook windows
+══════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .hero {
+    gap: 2.5rem;
+    padding: 6.5rem 5% 4rem;
+  }
+  .hero__name {
+    font-size: clamp(3rem, 6vw, 5rem);
+  }
+  .about__grid {
+    gap: 3.5rem;
+  }
+  .about__stats {
+    gap: 2rem;
+  }
+  .gallery__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  .contact__container {
+    gap: 4rem;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   MEDIA QUERY — MACBOOK AIR / PRO 13"–16"
+   Target: 1280px – 1600px (most common Mac resolutions)
+══════════════════════════════════════════════ */
+@media (min-width: 1280px) and (max-width: 1600px) {
+
+  .hero {
+    padding: 7rem 7% 5rem;
+    gap: 5rem;
+  }
+  .about__container,
+  .gallery__container,
+  .social__container,
+  .contact__container {
+    max-width: 1100px;
+  }
+  .gallery__grid {
+    gap: 1.25rem;
+  }
+  .social__grid {
+    gap: 1.25rem;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   SAFARI-SPECIFIC FIXES
+   Targets WebKit/Safari on iOS and macOS
+══════════════════════════════════════════════ */
+
+/* Fix: gradient text flickers/disappears in Safari during animations */
+.hero__name-first,
+.hero__name-last {
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Force GPU compositing to avoid repaint flicker */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Fix: backdrop-filter requires -webkit- prefix in older Safari */
+.nav.scrolled {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+.lightbox {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.lightbox__nav {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* Fix: 100vh includes address bar in Mobile Safari — already use 100svh in hero,
+   this ensures fallback for browsers without svh support */
+@supports not (height: 100svh) {
+  .hero { min-height: 100vh; }
+  .lightbox__inner { max-height: 90vh; }
+  .lightbox__inner img { max-height: 80vh; }
+}
+
+/* Fix: position: sticky on nav can fail in Safari if parent has overflow: hidden */
+body {
+  overflow-x: clip; /* 'clip' preserves sticky; 'hidden' can break it */
+}
+
+/* Fix: IntersectionObserver scroll reveal may not fire on iOS Safari
+   if elements start as opacity:0 — ensure they're always readable if JS fails */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .hero__content,
+  .hero__image-wrap {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero__orb--1,
+  .hero__orb--2,
+  .hero__scroll-line,
+  .hero__image-tag {
+    animation: none !important;
+  }
+  .hero__name-first,
+  .hero__name-last {
+    animation: none !important;
+    background-position: 0% 50%;
+  }
+}
