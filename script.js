@@ -294,7 +294,7 @@ function initScrollReveal() {
 /* ══════════════════════════════════════
    GALLERY — render + filter
 ══════════════════════════════════════ */
-let currentFilter = 'all';
+let currentFilter = 'agrupacion';
 
 function initGallery() {
   const grid = document.getElementById('galleryGrid');
@@ -335,6 +335,9 @@ function initGallery() {
       filterGallery(currentFilter);
     });
   });
+
+  // ── Cambio aquí: Se ejecuta el filtro inicial inmediatamente al cargar la web ──
+  filterGallery(currentFilter);
 }
 
 function filterGallery(filter) {
